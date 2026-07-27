@@ -82,26 +82,9 @@
 
   /* Plate signature graphic */
   .plate-card{
-    background:var(--paper); border-radius:28px; padding:22px; border:1px solid var(--line); box-shadow:var(--shadow);
-    position:relative; overflow:hidden;
+    border-radius:28px; overflow:hidden; box-shadow:var(--shadow);
   }
-  .plate-card::before{
-    content:""; position:absolute; top:-60px; right:-60px; width:220px; height:220px; border-radius:50%;
-    background:var(--sky); opacity:.6; z-index:0;
-  }
-  .plate-card::after{
-    content:""; position:absolute; bottom:-70px; left:-50px; width:180px; height:180px; border-radius:50%;
-    background:var(--leaf-light); opacity:.9; z-index:0;
-  }
-  .day-badge{
-    position:absolute; top:14px; left:14px; z-index:2; background:var(--forest-deep); color:var(--white);
-    font-family:'Inter'; font-weight:600; font-size:.78rem; padding:8px 16px; border-radius:999px;
-    box-shadow:0 8px 20px -8px rgba(0,0,0,.5);
-  }
-  .plate-wrap{position:relative; z-index:1; border-radius:20px; overflow:hidden;}
-  .plate-wrap img{width:100%; height:340px; object-fit:cover; display:block;}
-  .plate-caption{position:relative; z-index:1; text-align:center; font-size:.85rem; color:var(--ink-soft); margin-top:16px; padding:0 6px;}
-  .plate-caption b{color:var(--forest-deep);}
+  .plate-wrap img{width:100%; height:auto; display:block;}
 
   /* ---------- MARQUEE / TRUST STRIP ---------- */
   .trust{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper);}
@@ -191,22 +174,9 @@
   .final-cta h2{font-size:clamp(1.7rem,3vw,2.5rem); margin-bottom:16px;}
   .final-cta p.lede-final{color:var(--ink-soft); max-width:50ch; margin:0 auto 40px;}
   .cta-visual{
-    position:relative; max-width:420px; margin:0 auto 40px; border-radius:28px; overflow:hidden;
-    box-shadow:var(--shadow);
+    max-width:420px; margin:0 auto 40px; border-radius:28px; overflow:hidden; box-shadow:var(--shadow);
   }
-  .cta-visual::before{
-    content:""; position:absolute; top:-90px; left:-90px; width:240px; height:240px; border-radius:50%;
-    background:var(--sky); opacity:.7; z-index:0;
-  }
-  .cta-visual::after{
-    content:""; position:absolute; bottom:-100px; right:-80px; width:260px; height:260px; border-radius:50%;
-    background:var(--leaf-light); opacity:.85; z-index:0;
-  }
-  .cta-visual img{position:relative; z-index:1; width:100%; height:300px; object-fit:cover; display:block;}
-  .cta-visual .cta-tag{
-    position:absolute; z-index:2; top:16px; left:16px; background:var(--forest-deep); color:var(--white);
-    font-family:'Inter'; font-weight:600; font-size:.75rem; padding:7px 14px; border-radius:999px;
-  }
+  .cta-visual img{width:100%; height:auto; display:block;}
   .price-row{display:flex; align-items:baseline; justify-content:center; gap:10px; margin-bottom:26px;}
   .price-old{font-size:1.2rem; color:var(--ink-soft); text-decoration:line-through;}
   .price-new{font-family:'Poppins'; font-weight:800; font-size:2.4rem; color:var(--forest-deep);}
@@ -245,11 +215,9 @@
     </div>
 
     <div class="plate-card">
-      <span class="day-badge">Day 14 of 30</span>
       <div class="plate-wrap">
         <img src="plateplan-plate.png" alt="A LeanLife balanced plate: cucumber, green beans, cabbage, protein bites and a dip">
       </div>
-      <p class="plate-caption"><b>½ veggies &middot; ¼ protein &middot; ¼ carbs</b> &mdash; every meal in the planner is built on this one visual, so you never have to count a single calorie.</p>
     </div>
   </div>
 </header>
@@ -486,7 +454,6 @@
     <p class="lede-final">One simple plate. Three meals a day. A plan that fits into the schedule you already have.</p>
 
     <div class="cta-visual">
-      <span class="cta-tag">The Simple Plate Method</span>
       <img src="plateplan-plate.png" alt="A LeanLife balanced plate ready to eat">
     </div>
 
