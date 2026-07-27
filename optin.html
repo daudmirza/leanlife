@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeanLife Digital — The 30-Day Weight Loss Meal Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --paper:#F6FAF6;
+    --forest:#245C43;
+    --forest-deep:#173F2D;
+    --leaf:#6FBE8C;
+    --leaf-light:#DCF2E4;
+    --sky:#CFE9F4;
+    --sky-deep:#8FC7DD;
+    --ink:#1E2B27;
+    --ink-soft:#4A5854;
+    --line:#DCE7E1;
+    --radius:18px;
+    --shadow: 0 20px 45px -20px rgba(23,63,45,0.25);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Poppins', sans-serif; color:var(--forest-deep); line-height:1.15;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  .eyebrow{
+    font-family:'Inter', sans-serif; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    font-size:.72rem; color:var(--forest); display:inline-flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{content:""; width:16px; height:2px; background:var(--leaf); display:inline-block; border-radius:2px;}
+  section{padding:88px 0;}
+  @media (max-width:720px){ section{padding:56px 0;} }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:16px 30px; border-radius:999px; font-weight:600; font-size:1rem;
+    font-family:'Inter', sans-serif; cursor:pointer; border:none; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:focus-visible{outline:3px solid var(--sky-deep); outline-offset:3px;}
+  .btn-primary{background:var(--forest); color:var(--white); box-shadow:var(--shadow);}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{background:transparent; color:var(--forest-deep); border:1.5px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--forest);}
+  .btn-sub{display:block; margin-top:10px; font-size:.82rem; color:var(--ink-soft); text-align:center;}
+
+  /* ---------- NAV ---------- */
+  nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 24px;}
+  .logo{font-family:'Poppins'; font-weight:700; font-size:1.15rem; color:var(--forest-deep); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:10px; height:10px; border-radius:50%; background:var(--leaf);}
+  nav .btn{padding:11px 22px; font-size:.9rem;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:64px; padding-bottom:40px; position:relative; overflow:hidden;}
+  .hero::before{
+    content:""; position:absolute; top:-120px; right:-160px; width:520px; height:520px;
+    background:radial-gradient(circle, var(--sky) 0%, transparent 70%); opacity:.7;
+  }
+  .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; position:relative;}
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero h1{font-size:clamp(2.1rem, 4vw, 3.15rem); font-weight:700; margin:18px 0 20px; letter-spacing:-.01em;}
+  .hero h1 em{font-style:normal; color:var(--forest);}
+  .hero p.lede{font-size:1.12rem; color:var(--ink-soft); max-width:46ch; margin-bottom:30px;}
+  .hero-ctas{display:flex; align-items:flex-start; gap:18px; flex-wrap:wrap;}
+  .hero-proof{display:flex; gap:26px; margin-top:38px; flex-wrap:wrap;}
+  .hero-proof div{font-family:'Poppins'; font-weight:700; font-size:1.3rem; color:var(--forest-deep);}
+  .hero-proof span{display:block; font-family:'Inter'; font-weight:500; font-size:.78rem; color:var(--ink-soft); margin-top:2px;}
+
+  /* Plate signature graphic */
+  .plate-card{
+    background:var(--paper); border-radius:28px; padding:22px; border:1px solid var(--line); box-shadow:var(--shadow);
+    position:relative; overflow:hidden;
+  }
+  .plate-card::before{
+    content:""; position:absolute; top:-60px; right:-60px; width:220px; height:220px; border-radius:50%;
+    background:var(--sky); opacity:.6; z-index:0;
+  }
+  .plate-card::after{
+    content:""; position:absolute; bottom:-70px; left:-50px; width:180px; height:180px; border-radius:50%;
+    background:var(--leaf-light); opacity:.9; z-index:0;
+  }
+  .day-badge{
+    position:absolute; top:14px; left:14px; z-index:2; background:var(--forest-deep); color:var(--white);
+    font-family:'Inter'; font-weight:600; font-size:.78rem; padding:8px 16px; border-radius:999px;
+    box-shadow:0 8px 20px -8px rgba(0,0,0,.5);
+  }
+  .plate-wrap{position:relative; z-index:1; border-radius:20px; overflow:hidden;}
+  .plate-wrap img{width:100%; height:340px; object-fit:cover; display:block;}
+  .plate-caption{position:relative; z-index:1; text-align:center; font-size:.85rem; color:var(--ink-soft); margin-top:16px; padding:0 6px;}
+  .plate-caption b{color:var(--forest-deep);}
+
+  /* ---------- MARQUEE / TRUST STRIP ---------- */
+  .trust{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper);}
+  .trust .wrap{display:flex; flex-wrap:wrap; gap:14px 34px; justify-content:center; padding:22px 24px; font-size:.85rem; color:var(--ink-soft); font-weight:500;}
+  .trust .item{display:flex; align-items:center; gap:8px;}
+  .trust .item svg{flex-shrink:0;}
+
+  /* ---------- SECTION HEADS ---------- */
+  .sec-head{max-width:640px; margin:0 auto 48px; text-align:center;}
+  .sec-head h2{font-size:clamp(1.6rem,2.6vw,2.3rem); margin-top:14px;}
+  .sec-head p{color:var(--ink-soft); margin-top:14px; font-size:1.02rem;}
+
+  /* ---------- BENEFITS ---------- */
+  .benefits-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  @media (max-width:900px){ .benefits-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .benefits-grid{grid-template-columns:1fr;} }
+  .benefit-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:28px 24px; transition:border-color .15s, transform .15s;}
+  .benefit-card:hover{border-color:var(--leaf); transform:translateY(-3px);}
+  .b-icon{width:46px; height:46px; border-radius:12px; background:var(--leaf-light); display:flex; align-items:center; justify-content:center; margin-bottom:16px;}
+  .benefit-card h3{font-size:1.02rem; margin-bottom:8px;}
+  .benefit-card p{font-size:.92rem; color:var(--ink-soft);}
+
+  /* ---------- WHAT'S INCLUDED ---------- */
+  .included{background:var(--forest-deep); color:var(--white); border-radius:32px; margin:0 24px; padding:64px 48px;}
+  @media (max-width:720px){ .included{padding:44px 24px; margin:0 12px;} }
+  .included .sec-head h2, .included .sec-head p{color:var(--white);}
+  .included .sec-head p{color:#CFE0D6;}
+  .inc-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px 60px; max-width:900px; margin:0 auto;}
+  @media (max-width:720px){ .inc-grid{grid-template-columns:1fr;} }
+  .inc-group h4{font-family:'Inter'; font-weight:700; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--leaf); margin-bottom:14px;}
+  .inc-list{list-style:none;}
+  .inc-list li{display:flex; align-items:flex-start; gap:10px; font-size:.95rem; padding:7px 0; border-bottom:1px solid rgba(255,255,255,.08);}
+  .inc-list li:last-child{border-bottom:none;}
+  .inc-list svg{flex-shrink:0; margin-top:3px;}
+
+  /* ---------- PREVIEW / MOCKUPS ---------- */
+  .preview-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:800px){ .preview-grid{grid-template-columns:1fr; max-width:340px; margin:0 auto;} }
+  .mock{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .mock-head{background:var(--white); padding:14px 16px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:8px;}
+  .mock-head span{width:8px; height:8px; border-radius:50%; background:var(--sky-deep);}
+  .mock-body{padding:20px;}
+  .mock-title{font-family:'Poppins'; font-weight:600; font-size:.92rem; color:var(--forest-deep); margin-bottom:12px;}
+  .mock-line{height:8px; background:var(--line); border-radius:4px; margin-bottom:8px;}
+  .mock-line.short{width:60%;}
+  .mock-tag{display:inline-block; font-size:.68rem; font-weight:600; color:var(--forest); background:var(--leaf-light); padding:3px 10px; border-radius:999px; margin-bottom:10px;}
+
+  /* ---------- ROUTINE (before/after lifestyle, non-body) ---------- */
+  .routine{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  @media (max-width:800px){ .routine{grid-template-columns:1fr;} }
+  .routine-card{border-radius:var(--radius); padding:32px; border:1px solid var(--line);}
+  .routine-card.before{background:var(--paper);}
+  .routine-card.after{background:var(--leaf-light); border-color:var(--leaf);}
+  .routine-card h4{font-family:'Inter'; font-weight:700; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:18px; color:var(--ink-soft);}
+  .routine-card.after h4{color:var(--forest);}
+  .routine-item{display:flex; gap:12px; padding:10px 0; font-size:.94rem; border-bottom:1px dashed rgba(0,0,0,.08);}
+  .routine-item:last-child{border-bottom:none;}
+  .routine-time{font-family:'Poppins'; font-weight:600; font-size:.82rem; color:var(--forest-deep); min-width:52px;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:800px){ .testi-grid{grid-template-columns:1fr;} }
+  .testi-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:26px; position:relative;}
+  .testi-card .stars{color:var(--forest); font-size:.9rem; margin-bottom:12px; letter-spacing:2px;}
+  .testi-card p{font-size:.94rem; color:var(--ink); margin-bottom:16px;}
+  .testi-who{display:flex; align-items:center; gap:10px; font-size:.85rem; color:var(--ink-soft);}
+  .testi-avatar{width:34px; height:34px; border-radius:50%; background:var(--sky); display:flex; align-items:center; justify-content:center; font-family:'Poppins'; font-weight:600; font-size:.78rem; color:var(--forest-deep);}
+  .placeholder-flag{position:absolute; top:12px; right:12px; font-size:.62rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--sky-deep); background:var(--sky); padding:3px 8px; border-radius:999px;}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:760px; margin:0 auto;}
+  details{border-bottom:1px solid var(--line); padding:20px 4px;}
+  details summary{list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'Poppins'; font-weight:600; font-size:1rem; color:var(--forest-deep);}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+"; font-size:1.4rem; color:var(--forest); flex-shrink:0; transition:transform .2s;}
+  details[open] summary::after{transform:rotate(45deg);}
+  details p{color:var(--ink-soft); margin-top:12px; font-size:.94rem; max-width:64ch;}
+
+  /* ---------- GUARANTEE ---------- */
+  .guarantee{background:var(--sky); border-radius:32px; padding:56px 40px; text-align:center;}
+  .g-badge{width:64px; height:64px; margin:0 auto 20px; border-radius:50%; background:var(--white); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow);}
+  .guarantee h2{font-size:1.6rem; margin-bottom:12px;}
+  .guarantee p{max-width:52ch; margin:0 auto; color:var(--forest-deep); opacity:.85;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{text-align:center;}
+  .final-cta h2{font-size:clamp(1.7rem,3vw,2.5rem); margin-bottom:16px;}
+  .final-cta p.lede-final{color:var(--ink-soft); max-width:50ch; margin:0 auto 40px;}
+  .cta-visual{
+    position:relative; max-width:420px; margin:0 auto 40px; border-radius:28px; overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .cta-visual::before{
+    content:""; position:absolute; top:-90px; left:-90px; width:240px; height:240px; border-radius:50%;
+    background:var(--sky); opacity:.7; z-index:0;
+  }
+  .cta-visual::after{
+    content:""; position:absolute; bottom:-100px; right:-80px; width:260px; height:260px; border-radius:50%;
+    background:var(--leaf-light); opacity:.85; z-index:0;
+  }
+  .cta-visual img{position:relative; z-index:1; width:100%; height:300px; object-fit:cover; display:block;}
+  .cta-visual .cta-tag{
+    position:absolute; z-index:2; top:16px; left:16px; background:var(--forest-deep); color:var(--white);
+    font-family:'Inter'; font-weight:600; font-size:.75rem; padding:7px 14px; border-radius:999px;
+  }
+  .price-row{display:flex; align-items:baseline; justify-content:center; gap:10px; margin-bottom:26px;}
+  .price-old{font-size:1.2rem; color:var(--ink-soft); text-decoration:line-through;}
+  .price-new{font-family:'Poppins'; font-weight:800; font-size:2.4rem; color:var(--forest-deep);}
+
+  footer{border-top:1px solid var(--line); padding:36px 0; text-align:center; font-size:.82rem; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>LeanLife Digital</div>
+    <a href="#cta" class="btn btn-primary">Get the Planner</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">30-Day Weight Loss Meal Planner</span>
+      <h1>A simple plate, three times a day &mdash; <em>that's the whole plan.</em></h1>
+      <p class="lede">No macros to memorize, no diets to follow. Just a done-for-you 30-day meal plan, grocery lists, and trackers built for people with real schedules and real cravings.</p>
+      <div class="hero-ctas">
+        <div>
+          <a href="#cta" class="btn btn-primary">Start My 30 Days &mdash; $19</a>
+          <span class="btn-sub">Instant PDF download</span>
+        </div>
+        <a href="#included" class="btn btn-ghost">See what's inside</a>
+      </div>
+      <div class="hero-proof">
+        <div>30 Days<span>Fully planned meals</span></div>
+        <div>3 Macros<span>Explained simply</span></div>
+        <div>0 Guesswork<span>Just follow the plate</span></div>
+      </div>
+    </div>
+
+    <div class="plate-card">
+      <span class="day-badge">Day 14 of 30</span>
+      <div class="plate-wrap">
+        <img src="plateplan-plate.png" alt="A LeanLife balanced plate: cucumber, green beans, cabbage, protein bites and a dip">
+      </div>
+      <p class="plate-caption"><b>½ veggies &middot; ¼ protein &middot; ¼ carbs</b> &mdash; every meal in the planner is built on this one visual, so you never have to count a single calorie.</p>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="wrap">
+    <span class="item">⏱️ Ready to eat in 15 minutes</span>
+    <span class="item">🛒 Full grocery list included</span>
+    <span class="item">📱 Works on any phone or tablet</span>
+    <span class="item">🔒 Secure checkout</span>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Why it works</span>
+      <h2>Built for busy, not for perfect</h2>
+      <p>You don't need more willpower. You need fewer decisions. That's what this planner removes.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="b-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#245C43" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h3>Save time every day</h3>
+        <p>Every breakfast, lunch, dinner and snack is already decided &mdash; you just shop and cook.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#245C43" stroke-width="2"><path d="M4 19h16M4 15l4-6 4 4 4-8 4 5"/></svg></div>
+        <h3>Understand your food</h3>
+        <p>Plain-language guides on calories, protein, carbs and fat &mdash; the science, without the jargon.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#245C43" stroke-width="2"><path d="M12 21c-4-3-8-6.5-8-11a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 4.5-4 8-8 11Z"/></svg></div>
+        <h3>Made for real cravings</h3>
+        <p>Meals designed to actually satisfy you, so emotional eating has less room to creep in.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#245C43" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h3>Track without pressure</h3>
+        <p>Simple water, weight and habit trackers to see progress &mdash; not a scale obsession.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section id="included">
+  <div class="wrap">
+    <div class="included">
+      <div class="sec-head">
+        <span class="eyebrow" style="color:var(--leaf)">Everything in the box</span>
+        <h2>One PDF. Every day mapped out.</h2>
+        <p>Download once, use for 30 days &mdash; on your phone, tablet, or printed on your fridge.</p>
+      </div>
+      <div class="inc-grid">
+        <div class="inc-group">
+          <h4>Learn the basics</h4>
+          <ul class="inc-list">
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Nutrition basics, explained simply</li>
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Calories, protein, carbs &amp; fat guides</li>
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Meal timing tips for busy days</li>
+          </ul>
+        </div>
+        <div class="inc-group">
+          <h4>Eat every day</h4>
+          <ul class="inc-list">
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>30-day breakfast, lunch, dinner &amp; snack plan</li>
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Weekly shopping lists, ready to print</li>
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Easy, healthy recipes for every meal</li>
+          </ul>
+        </div>
+        <div class="inc-group">
+          <h4>Stay on track</h4>
+          <ul class="inc-list">
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Water, weight &amp; habit trackers</li>
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>FAQs for the questions you'll actually have</li>
+          </ul>
+        </div>
+        <div class="inc-group">
+          <h4>Know it's safe</h4>
+          <ul class="inc-list">
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Clear medical disclaimer included</li>
+            <li><svg width="16" height="16" fill="none" stroke="#6FBE8C" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Written for beginners, no experience needed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">A peek inside</span>
+      <h2>What each page looks like</h2>
+    </div>
+    <div class="preview-grid">
+      <div class="mock">
+        <div class="mock-head"><span></span><span></span><span></span></div>
+        <div class="mock-body">
+          <span class="mock-tag">Day 6</span>
+          <div class="mock-title">Breakfast · Lunch · Dinner</div>
+          <div class="mock-line"></div><div class="mock-line"></div><div class="mock-line short"></div>
+        </div>
+      </div>
+      <div class="mock">
+        <div class="mock-head"><span></span><span></span><span></span></div>
+        <div class="mock-body">
+          <span class="mock-tag">Grocery list</span>
+          <div class="mock-title">Week 2 shopping</div>
+          <div class="mock-line"></div><div class="mock-line"></div><div class="mock-line short"></div>
+        </div>
+      </div>
+      <div class="mock">
+        <div class="mock-head"><span></span><span></span><span></span></div>
+        <div class="mock-body">
+          <span class="mock-tag">Tracker</span>
+          <div class="mock-title">Water &amp; habits</div>
+          <div class="mock-line"></div><div class="mock-line"></div><div class="mock-line short"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTINE (before/after lifestyle, non-body) -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">A day, before &amp; after</span>
+      <h2>Same day. A lot less deciding.</h2>
+      <p>This isn't about a before-and-after photo &mdash; it's about what your Tuesday actually feels like.</p>
+    </div>
+    <div class="routine">
+      <div class="routine-card before">
+        <h4>Without a plan</h4>
+        <div class="routine-item"><span class="routine-time">7:00a</span><span>Skip breakfast, running late again</span></div>
+        <div class="routine-item"><span class="routine-time">12:30p</span><span>Whatever's fastest at lunch</span></div>
+        <div class="routine-item"><span class="routine-time">4:00p</span><span>Starving, grab anything nearby</span></div>
+        <div class="routine-item"><span class="routine-time">7:30p</span><span>"What's for dinner?" panic</span></div>
+      </div>
+      <div class="routine-card after">
+        <h4>With the planner</h4>
+        <div class="routine-item"><span class="routine-time">7:00a</span><span>Grab the pre-planned breakfast, out the door</span></div>
+        <div class="routine-item"><span class="routine-time">12:30p</span><span>Lunch already prepped from the shopping list</span></div>
+        <div class="routine-item"><span class="routine-time">4:00p</span><span>Planned snack, no crash</span></div>
+        <div class="routine-item"><span class="routine-time">7:30p</span><span>Dinner's already decided &mdash; just cook it</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">What readers say</span>
+      <h2>Real feedback, once it's in</h2>
+      <p>This section is wired up and ready &mdash; swap in genuine customer quotes as they come in after launch.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <span class="placeholder-flag">Sample</span>
+        <div class="stars">★★★★★</div>
+        <p>"The grocery list alone saved me an hour every single week &mdash; I just shop and go."</p>
+        <div class="testi-who"><div class="testi-avatar">SM</div>Sarah M., placeholder review</div>
+      </div>
+      <div class="testi-card">
+        <span class="placeholder-flag">Sample</span>
+        <div class="stars">★★★★★</div>
+        <p>"No more staring at the fridge at 6pm &mdash; dinner is already decided before I get home."</p>
+        <div class="testi-who"><div class="testi-avatar">JT</div>Jessica T., placeholder review</div>
+      </div>
+      <div class="testi-card">
+        <span class="placeholder-flag">Sample</span>
+        <div class="stars">★★★★★</div>
+        <p>"Simple enough that I actually stuck with it, and I never once counted a calorie."</p>
+        <div class="testi-who"><div class="testi-avatar">AR</div>Amanda R., placeholder review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Questions</span>
+      <h2>Before you start</h2>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>Do I need to count calories?</summary>
+        <p>No. The planner is built around a simple plate method &mdash; the calorie and macro math is already done for you inside every meal.</p>
+      </details>
+      <details>
+        <summary>Is this a strict diet?</summary>
+        <p>No. It's a 30-day meal plan built on real, everyday food. There's nothing to cut out completely and no forbidden foods list.</p>
+      </details>
+      <details>
+        <summary>How much weight will I lose?</summary>
+        <p>Results vary by person, and we don't promise a specific number. The planner is designed to support steady, sustainable habits rather than a quick fix.</p>
+      </details>
+      <details>
+        <summary>What format is it in?</summary>
+        <p>A downloadable PDF you can use on your phone, tablet, or print out. You'll get instant access after checkout.</p>
+      </details>
+      <details>
+        <summary>What if it's not for me?</summary>
+        <p>You're covered by our guarantee below &mdash; see the next section for details.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section>
+  <div class="wrap">
+    <div class="guarantee">
+      <div class="g-badge"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#245C43" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h2>30-day guarantee</h2>
+      <p>Try the planner for a full 30 days. If it's not a fit for your routine, email us and we'll refund you &mdash; no forms, no hassle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta">
+  <div class="wrap final-cta">
+    <span class="eyebrow">Ready when you are</span>
+    <h2>Your next 30 days, already planned</h2>
+    <p class="lede-final">One simple plate. Three meals a day. A plan that fits into the schedule you already have.</p>
+
+    <div class="cta-visual">
+      <span class="cta-tag">The Simple Plate Method</span>
+      <img src="plateplan-plate.png" alt="A LeanLife balanced plate ready to eat">
+    </div>
+
+    <div class="price-row">
+      <span class="price-old">$39</span>
+      <span class="price-new">$19</span>
+    </div>
+    <a href="#" class="btn btn-primary">Get the 30-Day Planner Now</a>
+    <span class="btn-sub">Instant download &middot; 30-day guarantee &middot; Secure checkout</span>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    LeanLife Digital &mdash; Healthy Weight Loss Made Simple. This product is for educational purposes and is not a substitute for medical advice.
+  </div>
+</footer>
+
+</body>
+</html>
